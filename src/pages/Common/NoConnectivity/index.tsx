@@ -1,5 +1,4 @@
 import "./noConnectivity.css";
-import logo from "./wifi_off.svg";
 
 const NoConnectivity = () => {
   return (

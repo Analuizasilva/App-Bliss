@@ -12,9 +12,8 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Loading />} />
         <Route path="share/:questionId" element={<Share />} />
-        <Route path="questions" element={<List />}>
-          <Route path=":questionId" element={<Detail />} />
-        </Route>
+        <Route path="questions" element={<List />} />
+        <Route path="questions/:id" element={<Detail />} />
         <Route path="NoConnectivity " element={<NoConnectivity />} />
       </Route>
     </Routes>
