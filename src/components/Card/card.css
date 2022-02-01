@@ -3,7 +3,7 @@
   transition: 0.3s;
   font-size: small;
   margin: 10px;
-  background-color: #647db8;
+  background-color: #5e95b7;
 }
 
 .card-header:hover {
@@ -15,6 +15,7 @@
 }
 
 .card {
+  color: #f8f8fa;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;

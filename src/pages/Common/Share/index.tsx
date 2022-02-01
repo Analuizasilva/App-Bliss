@@ -1,21 +1,32 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Breadcrumb from "../../../components/Breadcrumb";
-import Question from "../../../models/question";
 import api from "../../../services/api/api";
 import "./share.css";
 
 const Share = () => {
-  const [question, setQuestion] = useState<Question>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [email, setEmail] = useState("");
 
-  useEffect(() => {
+  function sendEmail() {
     api
       .post(
-        `questions/share?destination_email=destination_email&content_url=content_url`
+        `share?destination_email=${email}&content_url=${searchParams.get(
+          "contentUrl"
+        )}`
       )
       .then(({ data }) => {
-        setQuestion(data as Question);
+        {
+          data.status == "OK"
+            ? alert("Email Sent")
+            : alert("Ops... we had an error");
+        }
       });
-  }, []);
+  }
+
+  function setInpuValue(e: any) {
+    setEmail(e.target.value);
+  }
 
   return (
     <>
@@ -23,10 +34,24 @@ const Share = () => {
       <Breadcrumb path="/" text="Question" />
       <form>
         <label>
-          Email: <input type={"email"} />
+          Email:
+          <input
+            required
+            type={"email"}
+            value={email}
+            onInput={(e) => setInpuValue(e)}
+          />
         </label>
 
-        <button type="submit">Share</button>
+        <button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            email && sendEmail();
+          }}
+        >
+          Share
+        </button>
       </form>
     </>
   );

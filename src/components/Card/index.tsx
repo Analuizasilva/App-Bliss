@@ -15,7 +15,7 @@ const Card = (props: props) => {
           <h4>
             <b>{props.title.toLocaleUpperCase()}</b>
           </h4>
-          <p>{new Date(props.date).toDateString()}</p>
+          <p>Published at: {new Date(props.date).toLocaleDateString()}</p>
         </div>
       </div>
     </>
