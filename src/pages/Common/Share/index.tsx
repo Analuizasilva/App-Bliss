@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import Breadcrumb from "../../../components/Breadcrumb";
+import { Link, useSearchParams } from "react-router-dom";
 import api from "../../../services/api/api";
 import "./share.css";
 
@@ -31,7 +30,6 @@ const Share = () => {
   return (
     <>
       <h1>Share page</h1>
-      <Breadcrumb path="/" text="Question" />
       <form>
         <label>
           Email:

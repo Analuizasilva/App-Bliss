@@ -3,6 +3,7 @@ import api from "../../../services/api/api";
 import Question from "../../../models/question";
 import Card from "../../../components/Card";
 import { useNavigate } from "react-router-dom";
+import "./list.css";
 
 const List = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -16,7 +17,7 @@ const List = () => {
   const navigate = useNavigate();
 
   return (
-    <>
+    <div className="list">
       <h1>Questions</h1>
       <div className="card">
         {questions.map((question) => (
@@ -34,7 +35,7 @@ const List = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

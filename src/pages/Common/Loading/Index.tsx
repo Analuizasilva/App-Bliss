@@ -1,29 +1,16 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
-import api from "../../../services/api/api";
 
-const Loading = () => {
-  const [canRetry, setRetry] = useState(false);
+interface props {
+  canShowButton: boolean;
+}
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    api.get(`health`).then(({ data }) => {
-      const isHealth = data.status === "OK" ? true : false;
-      setRetry(!isHealth);
-
-      isHealth && navigate("questions");
-    });
-  }, []);
-
+const Loading = (props: props) => {
   return (
     <>
-      <p>
-        {canRetry && (
-          <Button text="Retry Action" action={() => window.location.reload()} />
-        )}
-      </p>
+      <p>Loading.....</p>
+      {props.canShowButton && (
+        <Button text="Retry Action" action={() => window.location.reload()} />
+      )}
     </>
   );
 };

@@ -1,0 +1,22 @@
+.detail h1 {
+  text-align: center;
+}
+
+.detail {
+  text-align: center;
+}
+.detail ul {
+  list-style: none;
+}
+
+/* Add a color to all links inside the list */
+nav {
+  color: red;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+.detail link {
+  color: #01447e;
+  text-decoration: underline;
+}

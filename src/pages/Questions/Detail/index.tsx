@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Breadcrumb from "../../../components/Breadcrumb";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Question from "../../../models/question";
 import api from "../../../services/api/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../components/Button";
+import "./detail.css";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -19,10 +19,11 @@ const Detail = () => {
   }, []);
 
   return (
-    <>
+    <div className="detail">
       <h1>Question Detail</h1>
-
-      <Breadcrumb path="/" text="Question" />
+      <nav>
+        <Link to={"/questions"}>Questions</Link>
+      </nav>
       {question ? (
         <div>
           <h3>{question.question}</h3>
@@ -50,7 +51,7 @@ const Detail = () => {
           />
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
