@@ -6,6 +6,7 @@ import "./share.css";
 const Share = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [email, setEmail] = useState("");
+  const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
 
   function sendEmail() {
     api
@@ -16,9 +17,9 @@ const Share = () => {
       )
       .then(({ data }) => {
         {
-          data.status == "OK"
-            ? alert("Email Sent")
-            : alert("Ops... we had an error");
+          data.status != "OK" || email == "" || reg.test(email) === false
+            ? alert("Ops... we had an error")
+            : alert("Email Sent");
         }
       });
   }
@@ -34,7 +35,7 @@ const Share = () => {
         <label>
           Email:
           <input
-            required
+            placeholder="ex: ana@gmail.com"
             type={"email"}
             value={email}
             onInput={(e) => setInpuValue(e)}
@@ -45,7 +46,7 @@ const Share = () => {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            email && sendEmail();
+            sendEmail();
           }}
         >
           Share
