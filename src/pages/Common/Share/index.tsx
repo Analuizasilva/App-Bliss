@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import api from "../../../services/api/api";
 import "./share.css";
 
@@ -17,7 +17,7 @@ const Share = () => {
       )
       .then(({ data }) => {
         {
-          data.status != "OK" || email == "" || reg.test(email) === false
+          data.status !== "OK" || email === "" || reg.test(email) === false
             ? alert("Ops... we had an error")
             : alert("Email Sent");
         }
