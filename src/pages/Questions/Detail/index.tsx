@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Question from "../../../models/question";
 import api from "../../../services/api/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faShareAltSquare } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../components/Button";
 import "./detail.css";
 
@@ -17,6 +17,11 @@ const Detail = () => {
       setQuestion(data as Question);
     });
   }, []);
+
+  function vote(choice: any) {
+    choice.votes++;
+    setQuestion({ ...question } as Question);
+  }
 
   return (
     <div className="detail">
@@ -39,12 +44,13 @@ const Detail = () => {
             <ul key={index}>
               <li>
                 {choice.choice} - {choice.votes} votes
-                <button>
-                  <FontAwesomeIcon color="green" icon={faCheck} />
+                <button onClick={() => vote(choice)}>
+                  vote <FontAwesomeIcon color="green" icon={faCheck} />
                 </button>
               </li>
             </ul>
           ))}
+          <FontAwesomeIcon icon={faShareAltSquare} />
           <Button
             text="Share"
             action={() => navigate(`/share?contentUrl=${window.location.href}`)}

@@ -1,5 +1,5 @@
 interface props {
-  text: string;
+  text: any;
   action?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 

@@ -16,8 +16,6 @@ const List = () => {
 
   const useData = () => {
     let response: Question[] = [];
-    debugger;
-    console.log(questions);
     return response;
   };
 
@@ -28,7 +26,7 @@ const List = () => {
       <h1>Questions</h1>
       {questions.length && (
         <InfiniteScroll
-          dataLength={questions.length} //This is important field to render the next data
+          dataLength={questions.length}
           next={useData}
           hasMore={true}
           loader={<h4>Loading...</h4>}
