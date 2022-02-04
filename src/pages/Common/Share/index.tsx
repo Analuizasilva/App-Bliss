@@ -19,6 +19,3 @@ const Share = () => {
 };
 
 export default Share;
-function useHistory() {
-  throw new Error("Function not implemented.");
-}
