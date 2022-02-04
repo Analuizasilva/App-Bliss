@@ -1,11 +1,15 @@
+import "./detail.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Question from "../../../models/question";
 import api from "../../../services/api/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faShareAltSquare } from "@fortawesome/free-solid-svg-icons";
-import Button from "../../../components/Button";
-import "./detail.css";
+import Card from "../../../components/Card";
+import {
+  faCheck,
+  faChevronCircleLeft,
+  faShareAltSquare,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -26,46 +30,53 @@ const Detail = () => {
   }
 
   return (
-    <div className="detail">
-      <h1>Question Detail</h1>
-      <nav>
-        <Link to={"/questions"}>Questions</Link>
-      </nav>
-      {question ? (
-        <div>
-          <div>
-            Share{" "}
-            <FontAwesomeIcon
-              size="lg"
-              onClick={() =>
-                navigate(`/share?contentUrl=${window.location.href}`)
-              }
-              icon={faShareAltSquare}
-            />
-          </div>
+    <>
+      <h1>Detail</h1>
 
-          <h3>{question.question}</h3>
-          <img src={question.image_url} />
-          <p>
-            <strong>Published at: </strong>
-            {new Date(question.published_at).toLocaleDateString()}
-          </p>
-          <p>
-            <strong>Id:</strong> {question.id}
-          </p>
-          {question.choices.map((choice, index) => (
-            <ul key={index}>
-              <li>
-                {choice.choice} - {choice.votes} votes
-                <button onClick={() => vote(choice)}>
-                  vote <FontAwesomeIcon color="green" icon={faCheck} />
-                </button>
-              </li>
-            </ul>
-          ))}
+      <Card class="cardDetail">
+        {question ? (
+          <div className="box">
+            <div className="image">
+              <img alt="questionImage" src={question.image_url} />
+            </div>
+            <div className="data">
+              <h3>{question.question}</h3>
+              <p>
+                <strong>Published at: </strong>
+                {new Date(question.published_at).toLocaleDateString()}
+              </p>
+              <p>
+                <strong>Id:</strong> {question.id}
+              </p>
+            </div>
+            <div className="choices">
+              {question.choices.map((choice, index) => (
+                <p key={index}>
+                  <button onClick={() => vote(choice)}>
+                    <strong>{choice.choice} </strong> - {choice.votes} votes{" "}
+                    <FontAwesomeIcon color="green" icon={faCheck} />
+                  </button>
+                </p>
+              ))}
+            </div>
+          </div>
+        ) : null}
+      </Card>
+      <div className="nav">
+        <div>
+          <Link className="link" to={"/questions"}>
+            <FontAwesomeIcon size="sm" icon={faChevronCircleLeft} />
+            Back to Questions
+          </Link>
         </div>
-      ) : null}
-    </div>
+        <div
+          className="share"
+          onClick={() => navigate(`/share?contentUrl=${window.location.href}`)}
+        >
+          Share <FontAwesomeIcon size="lg" icon={faShareAltSquare} />
+        </div>
+      </div>
+    </>
   );
 };
 

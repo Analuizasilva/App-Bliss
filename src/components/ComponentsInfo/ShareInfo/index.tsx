@@ -18,24 +18,25 @@ const ShareInfo = () => {
       )
       .then(({ data }) => {
         {
-          data.status !== "OK" || email === "" || reg.test(email) === false
+          debugger;
+          data.status !== "OK" || reg.test(email) === false
             ? alert("Ops... we had an error")
             : alert("Email Sent");
         }
       });
   }
+
   function setInpuValue(e: any) {
     setEmail(e.target.value);
   }
   return (
     <>
       <h1>
-        Share email <FontAwesomeIcon icon={faEnvelope} />
+        Share email <FontAwesomeIcon color="#94d7be" icon={faEnvelope} />
       </h1>
       <p>Enter email to share question details.</p>
       <form>
         <label>
-          Email:
           <input
             placeholder="ex: ana@gmail.com"
             required

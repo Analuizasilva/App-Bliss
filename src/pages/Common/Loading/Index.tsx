@@ -1,7 +1,7 @@
 import Button from "../../../components/Button";
 
 interface props {
-  canShowButton: boolean;
+  canShowButton?: boolean;
 }
 
 const Loading = (props: props) => {

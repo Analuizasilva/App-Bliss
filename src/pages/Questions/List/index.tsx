@@ -1,23 +1,38 @@
+import "./list.css";
 import { useEffect, useState } from "react";
 import api from "../../../services/api/api";
 import Question from "../../../models/question";
 import Card from "../../../components/Card";
 import { useNavigate } from "react-router-dom";
-import "./list.css";
 import InfiniteScroll from "react-infinite-scroll-component";
-import QuestionInfo from "../../../components/ComponentsInfo/QuestionsInfo/questionInfo";
+import QuestionInfo from "../../../components/ComponentsInfo/QuestionInfo/questionInfo";
+import Loading from "../../Common/Loading";
 
 const List = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
+  let [offset, setOffset] = useState<number>(0);
+  let [hasMore, setHasMore] = useState<boolean>(true);
+
+  const fakeLimit = 2;
+
   useEffect(() => {
-    api.get(`questions`).then(({ data }) => {
-      setQuestions(data as Question[]);
-    });
+    getQuestions().then((questions) => setQuestions(questions));
   }, []);
 
-  const useData = () => {
-    let response: Question[] = [];
-    return response;
+  const getQuestions = (offset = 0) => {
+    return api.get(`questions?limit=10&offset=${offset}`).then(({ data }) => {
+      return data as Question[];
+    });
+  };
+  const fetchMore = () => {
+    if (fakeLimit === offset) {
+      setHasMore(false);
+    }
+    offset++;
+    setOffset(offset);
+    getQuestions(offset).then((newQuestions) =>
+      setQuestions([...questions, ...newQuestions])
+    );
   };
 
   const navigate = useNavigate();
@@ -25,22 +40,18 @@ const List = () => {
   return (
     <div className="list">
       <h1>Questions</h1>
-      {questions.length && (
+      {questions.length > 0 ? (
         <InfiniteScroll
           dataLength={questions.length}
-          next={useData}
-          hasMore={true}
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
+          next={fetchMore}
+          hasMore={hasMore}
+          loader={<Loading />}
+          endMessage={<b>Yay! You have seen it all</b>}
         >
           <div className="container">
             {questions.map((question) => (
               <div
-                key={question.id}
+                key={question.id + offset * fakeLimit}
                 onClick={() => navigate(`/questions/${question.id}`)}
               >
                 <Card
@@ -57,7 +68,7 @@ const List = () => {
             ))}
           </div>
         </InfiniteScroll>
-      )}
+      ) : null}
     </div>
   );
 };

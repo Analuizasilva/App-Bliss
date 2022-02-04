@@ -3,7 +3,7 @@ import { Offline, Online } from "react-detect-offline";
 import NoConnectivity from "../NoConnectivity";
 import { useEffect, useState } from "react";
 import api from "../../../services/api/api";
-import Loading from "../Loading/Index";
+import Loading from "../Loading";
 
 const Layout = () => {
   const [loading, setLoading] = useState(true);
