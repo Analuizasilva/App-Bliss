@@ -19,8 +19,10 @@ const Detail = () => {
   }, []);
 
   function vote(choice: any) {
+    api.put(`questions/${id}`, question).then(({ data }) => {});
     choice.votes++;
     setQuestion({ ...question } as Question);
+    return question;
   }
 
   return (
@@ -31,6 +33,17 @@ const Detail = () => {
       </nav>
       {question ? (
         <div>
+          <div>
+            Share{" "}
+            <FontAwesomeIcon
+              size="lg"
+              onClick={() =>
+                navigate(`/share?contentUrl=${window.location.href}`)
+              }
+              icon={faShareAltSquare}
+            />
+          </div>
+
           <h3>{question.question}</h3>
           <img src={question.image_url} />
           <p>
@@ -50,11 +63,6 @@ const Detail = () => {
               </li>
             </ul>
           ))}
-          <FontAwesomeIcon icon={faShareAltSquare} />
-          <Button
-            text="Share"
-            action={() => navigate(`/share?contentUrl=${window.location.href}`)}
-          />
         </div>
       ) : null}
     </div>

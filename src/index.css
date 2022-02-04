@@ -1,9 +1,13 @@
 body {
   height: 100vw;
   height: 100vh;
-  background-color: #202131;
+  background-color: #f0f1f4;
   padding: 2rem;
-  color: #f8f8fa;
+  color: #202131;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

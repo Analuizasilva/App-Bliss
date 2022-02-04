@@ -5,6 +5,7 @@ import Card from "../../../components/Card";
 import { useNavigate } from "react-router-dom";
 import "./list.css";
 import InfiniteScroll from "react-infinite-scroll-component";
+import QuestionInfo from "../../../components/ComponentsInfo/QuestionsInfo/questionInfo";
 
 const List = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -36,16 +37,21 @@ const List = () => {
             </p>
           }
         >
-          <div className="card">
+          <div className="container">
             {questions.map((question) => (
               <div
                 key={question.id}
                 onClick={() => navigate(`/questions/${question.id}`)}
               >
                 <Card
-                  image={question.thumb_url}
-                  date={question.published_at}
-                  title={question.question}
+                  class="cardList"
+                  children={
+                    <QuestionInfo
+                      image={question.thumb_url}
+                      title={question.question}
+                      date={question.published_at}
+                    />
+                  }
                 />
               </div>
             ))}
